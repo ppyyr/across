@@ -636,7 +636,7 @@ add_client() {
     CLIENT_ENDPOINT="$(grep -w "Endpoint" ${default_client_if} | awk '{print $3}')"
     CLIENT_PRE_SHARED_KEY="$(grep -w "PresharedKey" ${default_client_if} | awk '{print $3}')"
     CLIENT_WG_IPV4="${ipv4_comm}.${issue_ip_last}"
-    CLIENT_WG_IPV6="${ipv6_comm}:${issue_ip_last}"
+    CLIENT_WG_IPV6="$(echo ${ipv6_comm}:${issue_ip_last} | sed -s 's/::::/::/')"
     # Create a new client interface
     if [ -n "${SERVER_PUB_IPV6}" ]; then
         cat > ${new_client_if} <<EOF
